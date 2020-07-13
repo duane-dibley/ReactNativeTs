@@ -1,23 +1,51 @@
 import React from 'react';
+import { Button } from 'react-native';
+import RNCalendarEvents from 'react-native-calendar-events';
 
-import {Button} from 'react-native';
+// Date.prototype.addHours = function (h) {
+//   this.setTime(this.getTime() + h * 60 * 60 * 1000);
+//   return this;
+// };
 
-export default function App() {
-  return (
-    <Button title="title" onPress={evt => console.log(evt)}></Button>
-  );
+RNCalendarEvents.authorizeEventStore();
+
+export default function App(): JSX.Element {
+  function onPress(): void {
+    const s = new Date(),
+      e = new Date();
+    // a = new Date();
+
+    s.setHours(s.getHours() + 1);
+    // s.setHours(s.getHours() - 1);
+    e.setHours(e.getHours() + 2);
+
+    console.log(s.toISOString());
+
+    RNCalendarEvents.saveEvent('alarm', {
+      startDate: s.toISOString(),
+      endDate: e.toISOString(),
+      // location: l,
+      alarms: [
+        {
+          date: 0,
+        },
+      ],
+    });
+  }
+
+  return <Button title="title" onPress={(/*evt*/): void => onPress()} />;
 }
 
-//
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+// //
+// /**
+//  * Sample React Native App
+//  * https://github.com/facebook/react-native
+//  *
+//  * Generated with the TypeScript template
+//  * https://github.com/react-native-community/react-native-template-typescript
+//  *
+//  * @format
+//  */
 
 // import React from 'react';
 // import {
